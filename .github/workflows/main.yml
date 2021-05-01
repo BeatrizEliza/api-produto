@@ -39,6 +39,6 @@ jobs:
           file: ./src/DockerFile
           push: true
           tags: 
-            beatrizlieza/api-bootcamp-produto:latest
-            beatrizlieza/api-bootcamp-produto:${{github.run_number}}
+            beatrizeliza/api-bootcamp-produto:latest
+            beatrizeliza/api-bootcamp-produto:${{github.run_number}}
             
