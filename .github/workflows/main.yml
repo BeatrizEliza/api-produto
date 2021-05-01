@@ -60,4 +60,11 @@ jobs:
         with:
           manifests:
             k8s/mongodb/deployment.yaml
-            k8s/
+            k8s/mongodb/sevice.yaml
+            
+      - name: Deploy WebApi
+        uses: Azure/k8s-set-context@v1.3
+        with:
+          images: beatrizeliza/api-bootcamp-produto:${{github.run_number}}
+          manifests:
+            k8s/mongodb/deployment.yaml     
