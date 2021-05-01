@@ -28,7 +28,6 @@ jobs:
           # uses: docker/build-push-action@e1b7f96249f2e4c8e4ac1519b9608c0d48944a1f
         uses: docker/build-push-action@v2.4.0
         with:
-          # Server address of Docker registry. If not set then will default to Docker Hub
           # Username used to log against the Docker registry
           username: ${{secrets.DOCKERHUB_USER}}
           # Password or personal access token used to log against the Docker registry
@@ -42,3 +41,23 @@ jobs:
             beatrizeliza/api-bootcamp-produto:latest
             beatrizeliza/api-bootcamp-produto:${{github.run_number}}
             
+  CD:
+    runs-on: ubuntu-latest
+    needs: {CI}
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1
+        with:
+          # Acceptable values: kubeconfig or service-account
+          method: kubeconfig
+          # Kubernetes Config
+          kubeconfig: ${{secrets.K8S_CONFIG}}
+              
+      - name: Deploy MongoDB
+        uses: Azure/k8s-set-context@v1.3
+        with:
+          manifests:
+            k8s/mongodb/deployment.yaml
+            k8s/
